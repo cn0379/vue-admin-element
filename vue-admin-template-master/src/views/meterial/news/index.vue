@@ -125,8 +125,10 @@ export default {
         id: id,
         disappear: true
       }
-      obj = qs.stringify(obj)
-      this.$router.push({ path: `/news/detailNews?id=${obj}` })
+      // obj = qs.stringify(obj, function replacer(key,valu){
+      //   console.log(key)
+      // })
+      this.$router.push({ path: `/news/detailNews?id=${id}&disappear=${disappear}` })
     },
     del(id) {
       newsApi.delNews({ id }).then(res => {
