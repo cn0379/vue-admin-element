@@ -167,7 +167,7 @@
           <el-col style="text-align:right;padding-bottom:18px;">
             <span>
               <el-button size="small">取 消</el-button>
-              <el-button type="primary" size="small" @click="addCost">添加缴费信息</el-button>
+              <el-button type="primary" size="small" @click="throttle(addCost,3000)">添加缴费信息</el-button>
             </span>
           </el-col>
         </el-form>
@@ -215,7 +215,7 @@ import {
 import xyClazzApi from '@/api/xy/clazz'
 import xyStudentApi from '@/api/xy/student'
 import { deepClone, resetFormData } from '@/utils/index'
-import qs from 'qs'
+
 
 export default {
   data() {
@@ -263,6 +263,18 @@ export default {
       this.selectCity = []
       this.dname = ''
     },
+     throttle(func, wait) {
+      var timer = null
+      return function () {
+        if (timer) {
+        } else {
+          func()
+          timer = setTimeout(function () {
+            timer = null
+          }, wait)
+        }
+      }
+    },
     addCost() {
       var newConstObj = deepClone(this.costForm)
       newConstObj.tempId = new Date().getTime()
@@ -304,8 +316,7 @@ export default {
         return this.getCurrentID(id)
       } else {
         xyStudentApi.studentDetail({ id }).then((res) => {
-          this.selectCity =
-            res.data.city == null ? {} : res.data.city.split(',')
+          this.selectCity = res.data.city == null ? {} : res.data.city.split(',')
           this.students = res.data
           this.className_ = res.data.classId
           this.dname = res.data.dormId

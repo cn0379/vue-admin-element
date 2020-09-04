@@ -27,8 +27,8 @@
         <el-table-column property="desc" align="center" width="200" label="文章描述" />
         <el-table-column property="cover" align="center" width="300" label="封面图片">
           <template slot-scope="scope">
-            　　　　      <img :src="scope.row.cover" width="200" height="80">
-          　　        </template>
+　　　　      <img :src="scope.row.cover" width="200" height="80">
+　　       </template>
         </el-table-column>
         <el-table-column property="hot" align="center" width="120" label="是否最热" />
         <el-table-column property="type" align="center" width="120" label="是否显示" />
@@ -63,7 +63,6 @@
 
 <script>
 import newsApi from '@/api/meterial/news/news'
-import axios from 'axios'
 import { getToken } from '../../../utils/myAuth'
 import qs from 'qs'
 export default {
